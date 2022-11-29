@@ -2,10 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Jrean\UserVerification\Exceptions\UserIsVerifiedException;
 
 class IsVerified
 {
@@ -18,8 +20,13 @@ class IsVerified
      */
     public function handle(Request $request, Closure $next)
     {
-        // Auth::logout();
-        return Redirect::route('homeUser');
-        return $next($request);
+        if($request->user()->verified)
+        {
+            return $next($request);
+        }
+        else
+        {
+            return Redirect::route('homeUser');
+        }
     }
 }

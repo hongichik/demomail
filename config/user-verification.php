@@ -44,6 +44,6 @@ return [
     | Supported: (bool) "true", "false"
     |
     */
-    'auto-login' => true,
+    'auto-login' => false,
 
 ];
